@@ -26,5 +26,11 @@ public class Projectile : MonoBehaviour
             Debug.Log("Projectile Hit The Ground");
             Destroy(gameObject);
         }
+
+        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Squished")
+        {
+            collision.gameObject.GetComponent<EnemyWalker>().IsDead();
+            Destroy(gameObject);
+        }
     }
 }

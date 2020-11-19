@@ -10,6 +10,6 @@ public class PickupSpawn : MonoBehaviour
     {
         int randomNum = Random.Range(0, pickupPrefab.Length);
 
-        Instantiate(pickupPrefab[randomNum], transform);
+        Instantiate(pickupPrefab[randomNum], transform.position, transform.rotation);
     }
 }

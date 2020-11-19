@@ -43,7 +43,7 @@ public class Pickups : MonoBehaviour
             switch(currentCollectible)
             {
                 case CollectibleType.KEY:
-                    if (Input.GetKeyDown(KeyCode.P))
+                    if (Input.GetKeyUp(KeyCode.P))
                     {
                         Debug.Log("You have picked up the key");
                         Destroy(gameObject);
