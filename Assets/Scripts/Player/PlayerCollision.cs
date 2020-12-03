@@ -22,15 +22,32 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Squished")
+        switch (collision.gameObject.tag)
         {
-            if (!gameObject.GetComponent<PlayerMovement>().isGrounded)
-            {
-                collision.gameObject.GetComponentInParent<EnemyWalker>().IsSquished();
-                rb.velocity = Vector2.zero;
-                rb.AddForce(Vector2.up * bounceForce);
-            }
+            case "Squished":
+                if (!gameObject.GetComponent<PlayerMovement>().isGrounded)
+                {
+                    collision.gameObject.GetComponentInParent<EnemyWalker>().IsSquished();
+                    rb.velocity = Vector2.zero;
+                    rb.AddForce(Vector2.up * bounceForce);
+                }
+                break;
+            case "EnemyProjectile":
+                GameManager.instance.lives--;
+                Destroy(collision.gameObject);
+                break;
         }
+
+
+        //if (collision.gameObject.tag == "Squished")
+        //{
+            
+        //}
+
+        //if (collision.gameObject.tag == "EnemyProjectile")
+        //{
+            
+        //}
     }
 
 }
