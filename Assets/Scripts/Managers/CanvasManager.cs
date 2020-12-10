@@ -42,10 +42,21 @@ public class CanvasManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (pauseMenu)
         {
-            if (pauseMenu)
+            if (pauseMenu.activeSelf)
+            {
+                Time.timeScale = 0.0f;
+            }
+            else
+            {
+                Time.timeScale = 1.0f;
+            }
+
+            if (Input.GetKeyDown(KeyCode.P))
+            {
                 pauseMenu.SetActive(!pauseMenu.activeSelf);
+            }
         }
 
         if (livesText)

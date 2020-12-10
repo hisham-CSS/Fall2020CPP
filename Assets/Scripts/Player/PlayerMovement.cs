@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
 
     public float powerupTime;
 
+    public AudioSource jumpSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,26 +50,27 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, isGroundLayer);
-
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Time.timeScale != 0.0f)
         {
-            myRigidbody.velocity = Vector2.zero;
+            float horizontalInput = Input.GetAxisRaw("Horizontal");
+            isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, isGroundLayer);
 
-            myRigidbody.AddForce(Vector2.up * jumpForce);
+            if (Input.GetButtonDown("Jump") && isGrounded)
+            {
+                myRigidbody.velocity = Vector2.zero;
+
+                myRigidbody.AddForce(Vector2.up * jumpForce);
+                GameManager.instance.audioManagerInstance.PlayerSound(jumpSound);
+            }
+
+            myRigidbody.velocity = new Vector2(horizontalInput * speed, myRigidbody.velocity.y);
+
+            myAnim.SetFloat("moveValue", Mathf.Abs(horizontalInput));
+            myAnim.SetBool("jump", !isGrounded);
+
+            if (marioSprite.flipX && horizontalInput > 0 || !marioSprite.flipX && horizontalInput < 0)
+                marioSprite.flipX = !marioSprite.flipX;
         }
-
-        myRigidbody.velocity = new Vector2(horizontalInput * speed, myRigidbody.velocity.y);
-
-        myAnim.SetFloat("moveValue", Mathf.Abs(horizontalInput));
-        myAnim.SetBool("jump", !isGrounded);
-
-        if (marioSprite.flipX && horizontalInput > 0 || !marioSprite.flipX && horizontalInput < 0 )
-            marioSprite.flipX = !marioSprite.flipX;
-
-
     }
 
     public void StartJumpForceChange()

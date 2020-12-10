@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     }
 
     public GameObject playerPrefab;
+    public AudioManager audioManagerPrefab;
+    public AudioManager audioManagerInstance;
 
     int _score;
     public int score
@@ -91,6 +93,7 @@ public class GameManager : MonoBehaviour
         if (mainCamera)
         {
             mainCamera.player = Instantiate(playerPrefab, spawnLocation.position, spawnLocation.rotation);
+            audioManagerInstance = Instantiate(audioManagerPrefab, spawnLocation.position, spawnLocation.rotation);
         }
         else
         {

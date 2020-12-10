@@ -12,6 +12,8 @@ public class PlayerFire : MonoBehaviour
     public float projectileSpeed;
     public Projectile projectilePrefab;
 
+    public AudioSource playerProjectile;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,9 +39,12 @@ public class PlayerFire : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Time.timeScale != 0.0f)
         {
-            FireProjectile();
+            if (Input.GetButtonDown("Fire1"))
+            {
+                FireProjectile();
+            }
         }
     }
 
@@ -56,6 +61,6 @@ public class PlayerFire : MonoBehaviour
             projectileInstance.speed = projectileSpeed;
         }
 
-        
+        GameManager.instance.audioManagerInstance.PlayerSound(playerProjectile);
     }
 }
